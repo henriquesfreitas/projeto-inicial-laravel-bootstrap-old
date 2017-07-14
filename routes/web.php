@@ -19,6 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/empresa', 'EmpresaController@index')->name('empresa');
-Route::get('/empresa/create', 'EmpresaController@create');
-Route::post('/empresa/store', 'EmpresaController@store');
+Route::group(['prefix'=>'empresa', 'where'=>['id'=>'[0-9]+']], function()
+{
+    Route::get('', 'EmpresaController@index')->name('empresa');
+    Route::get('create', 'EmpresaController@create');
+    Route::post('store', 'EmpresaController@store');
+    Route::get('{empresa}/edit', 'EmpresaController@edit');
+    Route::get('{empresa}/destroy', 'EmpresaController@destroy');
+    Route::put('{empresa}/update', 'EmpresaController@update');
+});

@@ -11,25 +11,25 @@
 
                             @include('layouts.errors')
 
-                            {!! Form::open(['action'=>'EmpresaController@store']) !!}
+                            {!! Form::open(['action'=>["EmpresaController@update",$empresa->id], 'method'=>'put']) !!}
                             <div class="form-group">
                                 {!! Form::label('nome', 'Nome:') !!}
-                                {!! Form::text('nome', null, ['class'=>'form-control', 'required']) !!}
+                                {!! Form::text('nome', $empresa->nome, ['class'=>'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('cnpj', 'CNPJ:') !!}
-                                {!! Form::number('cnpj', null, ['class'=>'form-control', 'required']) !!}
+                                {!! Form::number('cnpj', $empresa->cnpj, ['class'=>'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('email', 'Email:') !!}
-                                {!! Form::text('email', null, ['class'=>'form-control', 'required']) !!}
+                                {!! Form::text('email', $empresa->email, ['class'=>'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('telefone', 'Telefone:') !!}
-                                {!! Form::text('telefone', null, ['class'=>'form-control', 'required']) !!}
+                                {!! Form::text('telefone', $empresa->telefone, ['class'=>'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::submit('Incluir Empresa', ['class'=>'btn btn-primary']) !!}
+                                {!! Form::submit('Alterar Empresa', ['class'=>'btn btn-primary']) !!}
                                 <a href="{{ action("EmpresaController@index") }}" class="btn btn-default">Voltar</a>
                             </div>
                             {!! Form::close() !!}

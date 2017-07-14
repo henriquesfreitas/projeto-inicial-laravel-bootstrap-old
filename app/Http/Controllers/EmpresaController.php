@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -42,6 +47,8 @@ class EmpresaController extends Controller
         $novaEmpresa = $request->all();
         $empresaRepository->create($novaEmpresa);
 
+        session()->flash('menssagem-sucesso', 'Empresa incluida com sucesso!');
+
         return redirect()->action('EmpresaController@index');
     }
 
@@ -64,7 +71,7 @@ class EmpresaController extends Controller
      */
     public function edit(Empresa $empresa)
     {
-        //
+        return view('empresa.empresa-edit', compact('empresa'));
     }
 
     /**
@@ -74,9 +81,13 @@ class EmpresaController extends Controller
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empresa $empresa)
+    public function update(EmpresaRequest $request, Empresa $empresa)
     {
-        //
+        $empresa->update($request->all());
+
+        session()->flash('menssagem-sucesso', 'Empresa alterada com sucesso!');
+
+        return redirect()->action("EmpresaController@index");
     }
 
     /**
@@ -87,6 +98,10 @@ class EmpresaController extends Controller
      */
     public function destroy(Empresa $empresa)
     {
-        //
+        $empresa->delete();
+
+        session()->flash('menssagem-sucesso', 'Empresa removida com sucesso!');
+
+        return redirect()->route('empresa');
     }
 }

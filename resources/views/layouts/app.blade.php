@@ -70,8 +70,17 @@
                 </div>
             </div>
         </nav>
+        <div class="container">
 
-        @yield('content')
+            @if($flash = session('menssagem-sucesso'))
+                <div id="flash-message" class="alert alert-success" role="alert">
+                    {{ $flash }}
+                </div>
+            @endif
+
+            @yield('content')
+
+        </div>
     </div>
 
     <!-- Scripts -->
