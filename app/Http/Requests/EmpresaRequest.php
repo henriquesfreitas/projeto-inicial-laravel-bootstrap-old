@@ -24,7 +24,10 @@ class EmpresaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome'=>'required|min:5'
+            'nome'=>'required|min:5',
+            'cnpj'=>'required|min:18',
+            'email'=>'required|min:5',
+            'telefone'=>'required|min:12',
         ];
     }
 }

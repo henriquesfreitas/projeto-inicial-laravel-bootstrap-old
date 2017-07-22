@@ -6,6 +6,7 @@ use App\Models\Empresa;
 use App\Http\Requests\EmpresaRequest;
 use App\Repositories\EmpresaRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 
 class EmpresaController extends Controller
 {
@@ -44,10 +45,9 @@ class EmpresaController extends Controller
      */
     public function store(EmpresaRequest $request, EmpresaRepository $empresaRepository)
     {
-        $novaEmpresa = $request->all();
-        $empresaRepository->create($novaEmpresa);
+        $empresaRepository->create();
 
-        session()->flash('menssagem-sucesso', 'Empresa incluida com sucesso!');
+        session()->flash('menssagem-sucesso', Lang::get("geral.incluida", ['item'=>'Empresa']));
 
         return redirect()->action('EmpresaController@index');
     }
@@ -81,9 +81,9 @@ class EmpresaController extends Controller
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function update(EmpresaRequest $request, Empresa $empresa)
+    public function update(EmpresaRequest $request, Empresa $empresa, EmpresaRepository $empresaRepository)
     {
-        $empresa->update($request->all());
+        $empresaRepository->update($empresa);
 
         session()->flash('menssagem-sucesso', 'Empresa alterada com sucesso!');
 

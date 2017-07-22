@@ -18,7 +18,7 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('cnpj', 'CNPJ:') !!}
-                                {!! Form::number('cnpj', null, ['class'=>'form-control', 'required']) !!}
+                                {!! Form::text('cnpj', null, ['class'=>'form-control cnpj', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('email', 'Email:') !!}
@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('telefone', 'Telefone:') !!}
-                                {!! Form::text('telefone', null, ['class'=>'form-control', 'required']) !!}
+                                {!! Form::text('telefone', null, ['class'=>'form-control fone', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::submit('Incluir Empresa', ['class'=>'btn btn-primary']) !!}
@@ -39,4 +39,8 @@
             </div>
         </div>
     </div>
+    <script type="application/javascript">
+        $('.cnpj').mask('00.000.000/0000-00', {reverse: false});
+        $('.fone').mask('(00) 0000-0000', {reverse: false});
+    </script>
 @endsection

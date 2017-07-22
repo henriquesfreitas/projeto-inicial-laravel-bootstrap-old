@@ -23,12 +23,12 @@
                         <tr>
                             <td>{{ $empresa->id }}</td>
                             <td>{{ $empresa->nome }}</td>
-                            <td>{{ $empresa->cnpj }}</td>
+                            <td class="cnpj">{{ $empresa->cnpj }}</td>
                             <td>{{ $empresa->email }}</td>
-                            <td>{{ $empresa->telefone }}</td>
+                            <td class="fone">{{ $empresa->telefone }}</td>
                             <td>{{ $empresa->created_at }}</td>
                             <td><a href="{{ action("EmpresaController@edit", ['empresa'=>$empresa->id]) }}" class="btn btn-xs btn-info">Alterar</a></td>
-                            <td><a href="{{ action("EmpresaController@destroy", ['empresa'=>$empresa->id]) }}" class="btn btn-xs btn-danger">Remover</a></td>
+                            <td><a href="{{ action("EmpresaController@destroy", ['empresa'=>$empresa->id]) }}" class="btn btn-xs btn-danger" onclick="return confirm('{{ \Illuminate\Support\Facades\Lang::get('geral.aviso-remover') }}');">Remover</a></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -36,4 +36,8 @@
             </div>
         </div>
     </div>
+    <script type="application/javascript">
+        $('.cnpj').mask('00.000.000/0000-00', {reverse: false});
+        $('.fone').mask('(00) 0000-0000', {reverse: false});
+    </script>
 @endsection
