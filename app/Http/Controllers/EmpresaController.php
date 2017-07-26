@@ -4,103 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use App\Http\Requests\EmpresaRequest;
-use App\Repositories\EmpresaRepository;
-use Illuminate\Http\Request;
+use App\Services\EmpresaService;
 use Illuminate\Support\Facades\Lang;
 
 class EmpresaController extends Controller
 {
-    public function __construct()
+
+    private $empresaService;
+
+    public function __construct(EmpresaService $empresaService, Empresa $empresa)
     {
         $this->middleware('auth');
+        $this->empresaService = $empresaService;
     }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(EmpresaRepository $empresaRepository)
+
+    public function index()
     {
-        $empresas = $empresaRepository->all();
+        $empresas = $this->empresaService->getEmpresaRepository()->all();
 
         return view('empresa.empresa-index', compact('empresas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('empresa.empresa-create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(EmpresaRequest $request, EmpresaRepository $empresaRepository)
+    public function store(EmpresaRequest $request)
     {
-        $empresaRepository->create();
+        $this->empresaService->create();
 
-        session()->flash('menssagem-sucesso', Lang::get("geral.incluida", ['item'=>'Empresa']));
+        session()->flash('menssagem-sucesso', Lang::get("geral.registro-inserido-sucesso"));
 
         return redirect()->action('EmpresaController@index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Empresa  $empresa
-     * @return \Illuminate\Http\Response
-     */
     public function show(Empresa $empresa)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Empresa  $empresa
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Empresa $empresa)
     {
         return view('empresa.empresa-edit', compact('empresa'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Empresa  $empresa
-     * @return \Illuminate\Http\Response
-     */
-    public function update(EmpresaRequest $request, Empresa $empresa, EmpresaRepository $empresaRepository)
+    public function update(EmpresaRequest $request, Empresa $empresa)
     {
-        $empresaRepository->update($empresa);
+        $this->empresaService->update($empresa);
 
-        session()->flash('menssagem-sucesso', 'Empresa alterada com sucesso!');
+        session()->flash('menssagem-sucesso', Lang::get("geral.registro-alterado-sucesso"));
 
         return redirect()->action("EmpresaController@index");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Empresa  $empresa
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Empresa $empresa)
     {
-        $empresa->delete();
+        $this->empresaService->getEmpresaRepository()->delete($empresa);
 
-        session()->flash('menssagem-sucesso', 'Empresa removida com sucesso!');
+        session()->flash('menssagem-sucesso', Lang::get("geral.registro-removido-sucesso"));
 
         return redirect()->route('empresa');
     }
