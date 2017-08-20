@@ -19,12 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix'=>'empresa', 'where'=>['id'=>'[0-9]+']], function()
+Route::group(['prefix'=>'pessoa-juridica', 'where'=>['id'=>'[0-9]+']], function()
 {
-    Route::get('', 'EmpresaController@index')->name('empresa');
-    Route::get('create', 'EmpresaController@create');
-    Route::post('store', 'EmpresaController@store');
-    Route::get('{empresa}/edit', 'EmpresaController@edit');
-    Route::get('{empresa}/destroy', 'EmpresaController@destroy');
-    Route::put('{empresa}/update', 'EmpresaController@update');
+    Route::get('', 'PessoaJuridicaController@index')->name('pessoa-juridica');
+    Route::get('create', 'PessoaJuridicaController@create');
+    Route::post('store', 'PessoaJuridicaController@store');
+    Route::get('{pessoaJuridica}/edit', 'PessoaJuridicaController@edit');
+    Route::get('{pessoaJuridica}/destroy', 'PessoaJuridicaController@destroy');
+    Route::put('{pessoaJuridica}/update', 'PessoaJuridicaController@update');
+    Route::get('get-cidades/{idEstado}', 'PessoaJuridicaController@getCidades');
 });

@@ -63,4 +63,9 @@ abstract class AbstractRepository
         $this->model = $model;
     }
 
+    public function paginate($items = 10)
+    {
+        return $this->model->orderBy('id','desc')->paginate($items);
+    }
+
 }

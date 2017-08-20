@@ -118,6 +118,7 @@ return [
         'cnpj'=>'CNPJ',
         'email'=>'Email',
         'telefone'=>'Telefone',
+        'nome_fantasia'=>'Nome Fantasia',
     ),
 
 ];

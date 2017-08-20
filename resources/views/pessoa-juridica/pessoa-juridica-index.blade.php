@@ -5,7 +5,7 @@
         <div class="panel-heading">Empresa</div>
 
         <div class="panel-body">
-            <p><a href="{{ action("EmpresaController@create") }}" class="btn btn-primary">Incluir Empresa</a></p>
+            <p><a href="{{ action("PessoaJuridicaController@create") }}" class="btn btn-primary">Incluir Empresa</a></p>
             <div class="table-responsive">
                 <table class="table table-striped ">
                     <thead>
@@ -19,20 +19,21 @@
                     <th>Remover</th>
                     </thead>
                     <tbody>
-                    @foreach($empresas as $empresa)
+                    @foreach($listaPessoaJuridica as $pessoaJuridica)
                         <tr>
-                            <td>{{ $empresa->id }}</td>
-                            <td>{{ $empresa->nome }}</td>
-                            <td class="cnpj">{{ $empresa->cnpj }}</td>
-                            <td>{{ $empresa->email }}</td>
-                            <td class="fone">{{ $empresa->telefone }}</td>
-                            <td>{{ $empresa->created_at }}</td>
-                            <td><a href="{{ action("EmpresaController@edit", ['empresa'=>$empresa->id]) }}" class="btn btn-xs btn-info">Alterar</a></td>
-                            <td><a href="{{ action("EmpresaController@destroy", ['empresa'=>$empresa->id]) }}" class="btn btn-xs btn-danger" onclick="return confirm('{{ \Illuminate\Support\Facades\Lang::get('geral.aviso-remover') }}');">Remover</a></td>
+                            <td>{{ $pessoaJuridica->id }}</td>
+                            <td>{{ $pessoaJuridica->nome }}</td>
+                            <td class="cnpj">{{ $pessoaJuridica->cnpj }}</td>
+                            <td>{{ $pessoaJuridica->email }}</td>
+                            <td class="fone">{{ $pessoaJuridica->telefone }}</td>
+                            <td>{{ $pessoaJuridica->created_at }}</td>
+                            <td><a href="{{ action("PessoaJuridicaController@edit", ['pessoaJuridica'=>$pessoaJuridica->id]) }}" class="btn btn-xs btn-info">Alterar</a></td>
+                            <td><a href="{{ action("PessoaJuridicaController@destroy", ['pessoaJuridica'=>$pessoaJuridica->id]) }}" class="btn btn-xs btn-danger" onclick="return confirm('{{ \Illuminate\Support\Facades\Lang::get('geral.aviso-remover') }}');">Remover</a></td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                {{ $listaPessoaJuridica->links() }}
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    <a href="{{ action('EmpresaController@index') }}">Ver empresas</a>
+                    <a href="{{ action('PessoaJuridicaController@index') }}">Ver empresas</a>
                 </div>
             </div>
         </div>
