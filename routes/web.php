@@ -27,5 +27,5 @@ Route::group(['prefix'=>'pessoa-juridica', 'where'=>['id'=>'[0-9]+']], function(
     Route::get('{pessoaJuridica}/edit', 'PessoaJuridicaController@edit');
     Route::get('{pessoaJuridica}/destroy', 'PessoaJuridicaController@destroy');
     Route::put('{pessoaJuridica}/update', 'PessoaJuridicaController@update');
-    Route::get('get-cidades/{idEstado}', 'PessoaJuridicaController@getCidades');
+    Route::get('get-cidades/{idEstado}', 'EnderecoController@getCidades');
 });
