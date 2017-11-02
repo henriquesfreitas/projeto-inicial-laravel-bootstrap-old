@@ -23,6 +23,6 @@ class EnderecoController extends Controller{
     public function getCidades($idEstado)
     {
         $estado = $this->enderecoService->getEstadoRepository()->find($idEstado);
-        return $estado->getCidades()->getQuery()->get(['id', 'nome']);
+        return $estado->cidades()->getQuery()->get(['id', 'nome']);
     }
 }

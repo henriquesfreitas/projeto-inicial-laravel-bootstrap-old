@@ -31,16 +31,17 @@ class PessoaJuridicaController extends Controller
     public function create()
     {
         $estados = $this->enderecoService->getEstadoRepository()->retornarColecaoTodosEstados();
-        $cidades =  $this->enderecoService->popularEstadoCidadeInicial();
+        $idEstadoSelecionado = (!empty(old('id_cidade'))) ? $this->enderecoService->getCidadeRepository()->find(old('id_cidade'))->estado->id : null;
+        $cidades = $this->enderecoService->popularEstadoCidadeInicial($idEstadoSelecionado);
 
-        return view('pessoa-juridica.pessoa-juridica-create', compact('estados', 'cidades'));
+        return view('pessoa-juridica.pessoa-juridica-create', compact('estados', 'cidades', 'idEstadoSelecionado'));
     }
 
     public function store(PessoaJuridicaRequest $request)
     {
         $this->pessoaJuridicaService->getPessoaJuridicaRepository()->create($request->all());
 
-        session()->flash('menssagem-sucesso', Lang::get("geral.registro-inserido-sucesso"));
+        session()->flash('mensagem-sucesso', Lang::get("geral.registro-inserido-sucesso"));
 
         return redirect()->action('PessoaJuridicaController@index');
     }
@@ -52,14 +53,18 @@ class PessoaJuridicaController extends Controller
 
     public function edit(PessoaJuridica $pessoaJuridica)
     {
-        return view('pessoa-juridica.pessoa-juridica-edit', compact('pessoaJuridica'));
+        $estados = $this->enderecoService->getEstadoRepository()->retornarColecaoTodosEstados();
+        $idEstadoSelecionado = $this->enderecoService->getCidadeRepository()->find(!empty(old('id_cidade')) ? old('id_cidade') : $pessoaJuridica->id_cidade)->estado->id;
+        $cidades = $this->enderecoService->popularEstadoCidadeInicial($idEstadoSelecionado);
+
+        return view('pessoa-juridica.pessoa-juridica-create', compact('pessoaJuridica', 'estados', 'cidades', 'idEstadoSelecionado'));
     }
 
     public function update(PessoaJuridicaRequest $request, PessoaJuridica $pessoaJuridica)
     {
-        $this->pessoaJuridicaService->update($pessoaJuridica);
+        $this->pessoaJuridicaService->getPessoaJuridicaRepository()->update($pessoaJuridica, $request->all());
 
-        session()->flash('menssagem-sucesso', Lang::get("geral.registro-alterado-sucesso"));
+        session()->flash('mensagem-sucesso', Lang::get("geral.registro-alterado-sucesso"));
 
         return redirect()->action("PessoaJuridicaController@index");
     }
@@ -68,7 +73,7 @@ class PessoaJuridicaController extends Controller
     {
         $this->pessoaJuridicaService->getPessoaJuridicaRepository()->delete($pessoaJuridica);
 
-        session()->flash('menssagem-sucesso', Lang::get("geral.registro-removido-sucesso"));
+        session()->flash('mensagem-sucesso', Lang::get("geral.registro-removido-sucesso"));
 
         return redirect()->route('pessoa-juridica');
     }

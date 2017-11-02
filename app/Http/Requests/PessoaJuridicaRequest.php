@@ -33,6 +33,9 @@ class PessoaJuridicaRequest extends FormRequest
         ];
     }
 
+    //os nomes dos campos vão passar a ser o $input. Ex: old('cidade') ficará old('id_cidade')
+    // os campos que não foram adicionados no $input serão perdidos
+    //os nomes dos campos no $input devem ser exatamente iguais aos campos no banco
     public function sanitize()
     {
         $input['razao_social'] = request('razao_social');

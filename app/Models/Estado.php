@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Estado extends Model
 {
-    public function getCidades()
+    public function cidades()
     {
         return $this->hasMany('App\Models\Cidade');
     }

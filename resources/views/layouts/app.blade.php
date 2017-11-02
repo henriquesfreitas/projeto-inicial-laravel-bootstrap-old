@@ -74,7 +74,7 @@
         </nav>
         <div class="container">
 
-            @if($flash = session('menssagem-sucesso'))
+            @if($flash = session('mensagem-sucesso'))
                 <div id="flash-message" class="alert alert-success" role="alert">
                     {{ $flash }}
                 </div>

@@ -22,7 +22,7 @@
                     @foreach($listaPessoaJuridica as $pessoaJuridica)
                         <tr>
                             <td>{{ $pessoaJuridica->id }}</td>
-                            <td>{{ $pessoaJuridica->nome }}</td>
+                            <td>{{ $pessoaJuridica->nome_fantasia }}</td>
                             <td class="cnpj">{{ $pessoaJuridica->cnpj }}</td>
                             <td>{{ $pessoaJuridica->email }}</td>
                             <td class="fone">{{ $pessoaJuridica->telefone }}</td>
